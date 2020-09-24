@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
-import Stats from 'three/examples/jsm/libs/stats.module';
-import { GUI } from 'three/examples/jsm/libs/dat.gui.module';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
@@ -16,7 +14,7 @@ export class HomepageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    var container, stats;
+    var container
 			var camera, scene, renderer;
 			var controls, water, sun, mesh;
 
@@ -38,8 +36,8 @@ export class HomepageComponent implements OnInit {
 
 				scene = new THREE.Scene();
 
-				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 20000 );
-				camera.position.set( 30, 30, 100 );
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 30000 );
+				camera.position.set(-15000, 0, -15000);
 
 				//
 
@@ -62,17 +60,51 @@ export class HomepageComponent implements OnInit {
 						alpha: 1.0,
 						sunDirection: new THREE.Vector3(),
 						sunColor: 0xffffff,
-						waterColor: 0x16ADD8,
-						distortionScale: 2,
+						waterColor: 0x001e0f,
+						distortionScale: 3.7,
 						fog: scene.fog !== undefined
 					}
-        );
+				);
 
 				water.rotation.x = - Math.PI / 2;
 
 				scene.add( water );
 
 				// Skybox
+				let skyboxImage = ""
+				const materialArray = createMaterialArray(skyboxImage);
+				var skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000);
+				var skybox = new THREE.Mesh(skyboxGeo, materialArray);
+				scene.add(skybox);
+
+				const ft = new THREE.TextureLoader().load("pz.jpg");
+				const bk = new THREE.TextureLoader().load("nz.jpg");
+				const up = new THREE.TextureLoader().load("py.jpg");
+				const dn = new THREE.TextureLoader().load("ny.jpg");
+				const rt = new THREE.TextureLoader().load("px.jpg");
+				const lf = new THREE.TextureLoader().load("nx.jpg");
+
+				function createPathStrings(filename) {
+					const basePath = "assets/skybox/";
+					const baseFilename = basePath + filename;
+					const fileType = ".jpg";
+					const sides = ["nz", "pz", "py", "ny", "px", "nx"];
+					const pathStings = sides.map(side => {
+					  return baseFilename + side + fileType;
+					});
+					return pathStings;
+				  }
+				
+				  
+				  function createMaterialArray(filename) {
+					const skyboxImagepaths = createPathStrings(filename);
+					const materialArray = skyboxImagepaths.map(image => {
+					  let texture = new THREE.TextureLoader().load(image);
+					  return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+					});
+					return materialArray;
+				  }
+
 
 				var sky = new Sky();
 				sky.scale.setScalar( 10000 );
@@ -86,7 +118,7 @@ export class HomepageComponent implements OnInit {
 				uniforms[ 'mieDirectionalG' ].value = 0.8;
 
 				var parameters = {
-					inclination: 0.49,
+					inclination: 0.7,
 					azimuth: 0.3
 				};
 
@@ -116,38 +148,18 @@ export class HomepageComponent implements OnInit {
 				var material = new THREE.MeshStandardMaterial( { roughness: 0 } );
 
 				mesh = new THREE.Mesh( geometry, material );
-				// scene.add( mesh );
 
-				//
 
 				controls = new OrbitControls( camera, renderer.domElement );
+				controls.enabled = false;
 				controls.maxPolarAngle = Math.PI * 0.495;
 				controls.target.set( 0, 10, 0 );
 				controls.minDistance = 40.0;
-				controls.maxDistance = 200.0;
+				controls.maxDistance = 40.0;
 				controls.update();
 
-				//
-
-				// GUI
-
-				// var gui = new GUI();
-
-				// var folder = gui.addFolder( 'Sky' );
-				// folder.add( parameters, 'inclination', 0, 0.5, 0.0001 ).onChange( updateSun );
-				// folder.add( parameters, 'azimuth', 0, 1, 0.0001 ).onChange( updateSun );
-				// folder.open();
-
-        // does this break
 				var uniforms = water.material.uniforms;
 
-				// var folder = gui.addFolder( 'Water' );
-				// folder.add( uniforms.distortionScale, 'value', 0, 8, 0.1 ).name( 'distortionScale' );
-				// folder.add( uniforms.size, 'value', 0.1, 10, 0.1 ).name( 'size' );
-				// folder.add( uniforms.alpha, 'value', 0.9, 1, .001 ).name( 'alpha' );
-				// folder.open();
-
-				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
