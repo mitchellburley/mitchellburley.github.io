@@ -1,22 +1,22 @@
 .titles {
     position: absolute; 
     z-index: 250;
-    padding-left: 7rem;
-    padding-top: 2rem;
     font-family: "addison";
     font-size: 4rem;
+    order: 1;
+    left: 115px;
+    top: 40px;
 }
 
 .sub-titles {
-    display: flex;
-    flex-flow: row;
-    position: absolute; 
-    z-index: 250;
-    padding-left: 8rem;
-    padding-top: 14rem;
+    position: absolute;
+    z-index: 249;
     font-family: "paperflowers";
     font-size: 2em;
     font-weight: bold;
+    order: 2;
+    top: 230px;
+    left: 130px;
 }
 
 .sub-title-text {
@@ -26,4 +26,12 @@
 .sub-title-text:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+
+.title-body {
+    position: absolute;
+    z-index: 250;
+    display: flex;
+    width: 600px;
+    height: 400px;
 }
