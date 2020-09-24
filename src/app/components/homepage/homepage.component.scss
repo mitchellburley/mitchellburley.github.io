@@ -1,5 +1,29 @@
-canvas { 
-    outline: none; 
-    border: none; 
-    overflow: hidden;
+.titles {
+    position: absolute; 
+    z-index: 250;
+    padding-left: 7rem;
+    padding-top: 2rem;
+    font-family: "addison";
+    font-size: 4rem;
+}
+
+.sub-titles {
+    display: flex;
+    flex-flow: row;
+    position: absolute; 
+    z-index: 250;
+    padding-left: 8rem;
+    padding-top: 14rem;
+    font-family: "paperflowers";
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.sub-title-text {
+    padding-right: 3rem;
+}
+
+.sub-title-text:hover {
+    color: white;
+    cursor: pointer;
 }

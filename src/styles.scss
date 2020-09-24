@@ -1,3 +1,13 @@
+@font-face {
+    font-family: addison;
+    src: url(assets/fonts/addison.otf) format("opentype");
+  }
+
+  @font-face {
+    font-family: paperflowers;
+    src: url(assets/fonts/paperflowers.otf) format("opentype");
+  }
+
 body {
     margin: 0px;
     overflow-y: hidden;
