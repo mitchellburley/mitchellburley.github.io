@@ -1,10 +1,19 @@
 <div id="container">
     <div class="title-body">
-        <h2 class="titles">Mitchell Burley</h2>
+        <h2 (click)="routeToHome()" class="titles">Mitchell Burley</h2>
         <div class="sub-titles" >
             <a (click)="routeToAbout()" class="sub-title-text">About</a>
             <a (click)="routeToProjects()" id="projects" class="sub-title-text">Projects</a>
             <a (click)="routeToContact()" class="sub-title-text">Contact</a>
         </div>
+    </div>
+    <div *ngIf="showProjects">
+        <app-projects></app-projects>
+    </div>
+    <div *ngIf="showContact">
+        <app-contact></app-contact>
+    </div>
+    <div *ngIf="showAbout">
+        <app-about></app-about>
     </div>
 </div>

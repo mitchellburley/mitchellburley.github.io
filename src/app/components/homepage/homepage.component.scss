@@ -28,6 +28,11 @@
     cursor: pointer;
 }
 
+.titles:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .title-body {
     position: absolute;
     z-index: 250;

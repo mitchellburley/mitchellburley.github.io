@@ -43,6 +43,9 @@ export class HomepageComponent implements OnInit, OnDestroy {
 	mesh = new THREE.Mesh( this.geometry, this.material );
 	controls = new OrbitControls( this.camera, this.renderer.domElement );
 	pmremGenerator = new THREE.PMREMGenerator( this.renderer );
+	showProjects = false;
+	showAbout = false;
+	showContact = false;
 
   constructor(private router: Router) { }
 
@@ -176,15 +179,27 @@ export class HomepageComponent implements OnInit, OnDestroy {
 }
 
 routeToProjects() {
-	this.router.navigate(['/projects']);
+	this.showAbout = false;
+	this.showContact = false;
+	this.showProjects = true;
 }
 
 routeToContact() {
-	this.router.navigate(['/contact']);
+	this.showAbout = false;
+	this.showContact = true;
+	this.showProjects = false;
 }
 
 routeToAbout() {
-	this.router.navigate(['/about']);
+	this.showAbout = true;
+	this.showContact = false;
+	this.showProjects = false;
+}
+
+routeToHome() {
+	this.showAbout = false;
+	this.showContact = false;
+	this.showProjects = false;
 }
 
 ngOnDestroy() {
