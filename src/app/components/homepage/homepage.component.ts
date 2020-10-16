@@ -179,6 +179,14 @@ routeToProjects() {
 	this.router.navigate(['/projects']);
 }
 
+routeToContact() {
+	this.router.navigate(['/contact']);
+}
+
+routeToAbout() {
+	this.router.navigate(['/about']);
+}
+
 ngOnDestroy() {
 	while(this.scene.children.length > 0){ 
 		this.scene.remove(this.scene.children[0]);

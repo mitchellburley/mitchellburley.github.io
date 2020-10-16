@@ -35,3 +35,33 @@
     width: 600px;
     height: 400px;
 }
+
+
+@media screen and (max-width: 400px) {
+    .title-body {
+        position: absolute;
+        z-index: 250;
+        display: flex;
+        width: 400px;
+        height: 200px;
+    }
+    .titles {
+        position: absolute; 
+        z-index: 250;
+        font-family: "addison";
+        font-size: 3.2rem;
+        order: 1;
+        left: 60px;
+        top: 40px;
+    }
+    .sub-titles {
+        position: absolute;
+        z-index: 249;
+        font-family: "paperflowers";
+        font-size: 2em;
+        font-weight: bold;
+        order: 2;
+        top: 200px;
+        left: 50px;
+    }
+}
