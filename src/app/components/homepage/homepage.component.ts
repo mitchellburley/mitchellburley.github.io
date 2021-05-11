@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
 import { Router } from '@angular/router';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-homepage',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit, OnDestroy {
-
+	showNextPage = false;
+	faAngleRight = faAngleRight;
 	showAnimation = true;
 	camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 30000 );
 	container = document.getElementById( 'container' );
@@ -50,12 +52,11 @@ export class HomepageComponent implements OnInit, OnDestroy {
   constructor(private router: Router) { }
 
   ngOnInit() {
-		this.init();
-		this.animate();
+	this.init();
+	this.animate();
   }
 
   init() {
-
 	this.container = document.getElementById( 'container' );
 	this.renderer.setPixelRatio( window.devicePixelRatio );
 	this.renderer.setSize( window.innerWidth, window.innerHeight );
@@ -127,38 +128,38 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
 	window.addEventListener( 'resize', this.onWindowResize.bind(this), false );
 
-}
+	}
 
- updateSun() {
-	var parameters = {
-		inclination: 0.7,
-		azimuth: 0.3
-	};
-	var theta = Math.PI * ( parameters.inclination - 0.5 );
-	var phi = 2 * Math.PI * ( parameters.azimuth - 0.5 );
+	updateSun() {
+		var parameters = {
+			inclination: 0.7,
+			azimuth: 0.3
+		};
+		var theta = Math.PI * ( parameters.inclination - 0.5 );
+		var phi = 2 * Math.PI * ( parameters.azimuth - 0.5 );
 
-	this.sun.x = Math.cos( phi );
-	this.sun.y = Math.sin( phi ) * Math.sin( theta );
-	this.sun.z = Math.sin( phi ) * Math.cos( theta );
+		this.sun.x = Math.cos( phi );
+		this.sun.y = Math.sin( phi ) * Math.sin( theta );
+		this.sun.z = Math.sin( phi ) * Math.cos( theta );
 
-	this.sky.material.uniforms[ 'sunPosition' ].value.copy( this.sun );
-	this.water.material.uniforms[ 'sunDirection' ].value.copy( this.sun ).normalize();
+		this.sky.material.uniforms[ 'sunPosition' ].value.copy( this.sun );
+		this.water.material.uniforms[ 'sunDirection' ].value.copy( this.sun ).normalize();
 
-	this.scene.environment = this.pmremGenerator.fromScene( this.sky as any ).texture;
+		this.scene.environment = this.pmremGenerator.fromScene( this.sky as any ).texture;
 
-}
+	}
 
 
- onWindowResize() {
+	onWindowResize() {
 
-	this.camera.aspect = window.innerWidth / window.innerHeight;
-	this.camera.updateProjectionMatrix();
+		this.camera.aspect = window.innerWidth / window.innerHeight;
+		this.camera.updateProjectionMatrix();
 
-	this.renderer.setSize( window.innerWidth, window.innerHeight );
+		this.renderer.setSize( window.innerWidth, window.innerHeight );
 
-}
+	}
 
- 	animate() {
+	animate() {
 		requestAnimationFrame( this.animate.bind(this) );
 		this.render();
 
@@ -176,36 +177,36 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
 	this.renderer.render( this.scene, this.camera );
 
-}
-
-routeToProjects() {
-	this.showAbout = false;
-	this.showContact = false;
-	this.showProjects = true;
-}
-
-routeToContact() {
-	this.showAbout = false;
-	this.showContact = true;
-	this.showProjects = false;
-}
-
-routeToAbout() {
-	this.showAbout = true;
-	this.showContact = false;
-	this.showProjects = false;
-}
-
-routeToHome() {
-	this.showAbout = false;
-	this.showContact = false;
-	this.showProjects = false;
-}
-
-ngOnDestroy() {
-	while(this.scene.children.length > 0){ 
-		this.scene.remove(this.scene.children[0]);
 	}
-}
+
+	routeToProjects() {
+		this.showAbout = false;
+		this.showContact = false;
+		this.showProjects = true;
+	}
+
+	routeToContact() {
+		this.showAbout = false;
+		this.showContact = true;
+		this.showProjects = false;
+	}
+
+	routeToAbout() {
+		this.showAbout = true;
+		this.showContact = false;
+		this.showProjects = false;
+	}
+
+	routeToHome() {
+		this.showAbout = false;
+		this.showContact = false;
+		this.showProjects = false;
+	}
+
+	ngOnDestroy() {
+		while(this.scene.children.length > 0){ 
+			this.scene.remove(this.scene.children[0]);
+		}
+	}
 
 }

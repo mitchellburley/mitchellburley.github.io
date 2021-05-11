@@ -15,8 +15,8 @@
     font-size: 2em;
     font-weight: bold;
     order: 2;
-    top: 230px;
-    left: 130px;
+    top: 215px;
+    left: 100px;
 }
 
 .sub-title-text {
@@ -24,12 +24,12 @@
 }
 
 .sub-title-text:hover {
-    text-decoration: underline;
+    color: white;
     cursor: pointer;
 }
 
 .titles:hover {
-    text-decoration: underline;
+    color: white;
     cursor: pointer;
 }
 
@@ -68,4 +68,59 @@
         top: 200px;
         left: 50px;
     }
+}
+
+.code-info {
+    width: 100%;
+    height: 60vh;
+    background: linear-gradient(180deg, rgba(91,98,92,1) 0%, rgba(187,188,171,1) 85%, rgba(241,235,209,1) 100%);
+}
+
+.code-title {
+    text-align: center; 
+    font-family: "paperflowers";
+    font-size: 4rem;
+ } 
+
+ .code-title::before,
+ .code-title::after {
+     display: inline-block;
+     content: "";
+     border-top: .3rem solid black;
+     width: 5rem;
+     margin: 0 1rem;
+     transform: translateY(-1rem);
+ }
+
+ .abilities-body {
+    width: 50vw;
+    margin-left: auto;
+    margin-right: auto;
+ }
+
+ .code-languages {
+    width: 20vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.code-technologies {
+    width: 20vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.angle-text {
+    position: absolute;
+    z-index: 249;
+    font-family: "paperflowers";
+    font-size: 4em;
+    order: 2;
+    top: 50%;
+    right: 20px;
+}
+
+.angle-text:hover {
+    color: white;
+    cursor: pointer;
 }
