@@ -209,4 +209,29 @@ export class HomepageComponent implements OnInit, OnDestroy {
 		}
 	}
 
+	handleNextChange($event, currentState: string) {
+		switch(currentState) {
+			case 'about':
+				this.showAbout = false;
+				this.showProjects = true;
+				break;
+			case 'projects':
+				// this.showProjects = false;
+				// this.showAbout = true;
+				break;
+		}
+	}
+
+	handlePreviousChange($event, currentState: string) {
+		switch(currentState) {
+			case 'about':
+				this.showAbout = false;
+				break;
+			case 'projects':
+				this.showProjects = false;
+				this.showAbout = true;
+				break;
+		}
+	}
+
 }

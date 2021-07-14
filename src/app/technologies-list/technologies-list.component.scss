@@ -6,8 +6,16 @@
 
 .item {
     align-items: flex-start;
-    margin: 10px;
+    display: block;
+    opacity: 1;
+    margin: 20px;
     width: 100px;
     height: 100px;
-    background-color: white;
+}
+
+.tech-text {
+    font-size: 16px;
+    color: white;
+    display: flex;
+    justify-content: center;
 }

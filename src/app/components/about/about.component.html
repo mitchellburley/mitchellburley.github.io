@@ -1,7 +1,7 @@
 <div id="container">
     <div class="about-main">
         <div class="code-info">
-            <h1 class="code-title">ABILITIES</h1>
+            <h1 class="code-title">SKILLS & LANGUAGES</h1>
             <div class="abilities-body row">
                 <div class="code-languages col-5">
                     <app-languages-list></app-languages-list>
@@ -10,6 +10,12 @@
                     <app-technologies-list></app-technologies-list>
                 </div>
             </div>
+        </div>
+        <div (click)="routeToProjects()">
+            <fa-icon class="angle-text-right" [icon]="faAngleRight"></fa-icon>
+        </div>
+        <div (click)="routeToHome()">
+            <fa-icon class="angle-text-left" [icon]="faAngleLeft"></fa-icon>
         </div>
     </div>
 </div>
