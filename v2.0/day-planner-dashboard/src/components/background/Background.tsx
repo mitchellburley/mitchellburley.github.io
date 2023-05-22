@@ -43,7 +43,7 @@ export class Background extends Component {
 
   async componentDidMount() {
     this.init();
-    this.renderAnimation();
+    this.animate();
   }
 
   init() {
@@ -66,7 +66,7 @@ export class Background extends Component {
     this.scene.add(skybox);
    
     function createPathStrings(filename: any) {
-      const basePath = "../../assets/skybox/";
+      const basePath = "assets/skybox/";
       const baseFilename = basePath + filename;
       const fileType = ".jpg";
       const sides = ["nz", "pz", "py", "ny", "px", "nx"];
@@ -83,7 +83,6 @@ export class Background extends Component {
       let texture = new THREE.TextureLoader().load(image);
       return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
     });
-    console.log(materialArray);
     return materialArray;
     }
   
@@ -146,22 +145,24 @@ export class Background extends Component {
 	}
 
 	renderAnimation() {
+    var time = performance.now() * 0.001;
 
-	var time = performance.now() * 0.001;
+    this.mesh.position.y = Math.sin( time ) * 20 + 5;
+    this.mesh.rotation.x = time * 0.5;
+    this.mesh.rotation.z = time * 0.51;
 
-	this.mesh.position.y = Math.sin( time ) * 20 + 5;
-	this.mesh.rotation.x = time * 0.5;
-	this.mesh.rotation.z = time * 0.51;
+    this.water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
 
-	this.water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
-
-	this.renderer.render( this.scene, this.camera );
-
+    this.renderer.render( this.scene, this.camera );
+    console.log(this.renderer);
+    console.log(this.scene);
 	}
 
   render() {
     return (
-      <div id="container">
+      <div>
+        <div id="container">
+        </div>
       </div>
     )
   }
