@@ -2,8 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
 import { Water } from 'three/examples/jsm/objects/Water.js';
 import { Sky } from 'three/examples/jsm/objects/Sky.js';
+import Welcome from '../welcome-box/Welcome'
+import Main from '../main-box/Main';
 
 export class Background extends Component {
   camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 30000 );
@@ -43,7 +46,7 @@ export class Background extends Component {
 
   async componentDidMount() {
     this.init();
-    this.renderAnimation();
+    this.animate();
   }
 
   init() {
@@ -74,17 +77,16 @@ export class Background extends Component {
         return baseFilename + side + fileType;
       });
       return pathStings;
-      }
+    }
     
       
     function createMaterialArray(filename: any) {
-    const skyboxImagepaths = createPathStrings(filename);
-    const materialArray = skyboxImagepaths.map(image => {
-      let texture = new THREE.TextureLoader().load(image);
-      return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
-    });
-    console.log(materialArray);
-    return materialArray;
+      const skyboxImagepaths = createPathStrings(filename);
+      const materialArray = skyboxImagepaths.map(image => {
+        let texture = new THREE.TextureLoader().load(image);
+        return new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
+      });
+      return materialArray;
     }
   
     this.sky.scale.setScalar( 10000 );
@@ -101,7 +103,7 @@ export class Background extends Component {
   
     // Add controls
     this.controls.enabled = false;
-    this.controls.maxPolarAngle = Math.PI * 0.495;
+    this.controls.maxPolarAngle = Math.PI * 0.5;
     this.controls.target.set( 0, 10, 0 );
     this.controls.minDistance = 40.0;
     this.controls.maxDistance = 40.0;
@@ -119,10 +121,8 @@ export class Background extends Component {
       var theta = Math.PI * ( parameters.inclination - 0.5 );
       var phi = 2 * Math.PI * ( parameters.azimuth - 0.5 );
   
-      this.sun.x = Math.cos( phi );
-      this.sun.y = Math.sin( phi ) * Math.sin( theta );
-      this.sun.z = Math.sin( phi ) * Math.cos( theta );
-  
+      this.sun.setFromSphericalCoords( 1, phi, theta );
+
       this.sky.material.uniforms[ 'sunPosition' ].value.copy( this.sun );
       this.water.material.uniforms[ 'sunDirection' ].value.copy( this.sun ).normalize();
   
@@ -131,12 +131,10 @@ export class Background extends Component {
     }
     
 	onWindowResize() {
-
 		this.camera.aspect = window.innerWidth / window.innerHeight;
 		this.camera.updateProjectionMatrix();
 
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
-
 	}
 
 	animate() {
@@ -146,22 +144,21 @@ export class Background extends Component {
 	}
 
 	renderAnimation() {
+    var time = performance.now() * 0.001;
 
-	var time = performance.now() * 0.001;
+    this.mesh.position.y = Math.sin( time ) * 20 + 5;
+    this.mesh.rotation.x = time * 0.5;
+    this.mesh.rotation.z = time * 0.51;
 
-	this.mesh.position.y = Math.sin( time ) * 20 + 5;
-	this.mesh.rotation.x = time * 0.5;
-	this.mesh.rotation.z = time * 0.51;
+    this.water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
 
-	this.water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
-
-	this.renderer.render( this.scene, this.camera );
-
+    this.renderer.render( this.scene, this.camera );
 	}
 
   render() {
     return (
-      <div id="container">
+      <div id="container" style={{zIndex: -999}}>
+        <Main />
       </div>
     )
   }
