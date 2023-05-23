@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Box } from '@chakra-ui/react'
 
 export class Welcome extends Component {
   static propTypes = {
@@ -8,8 +9,11 @@ export class Welcome extends Component {
 
   render() {
     return (
-      <div>
-      </div>
+      <Box borderWidth='0px' borderRadius='lg' bg={'rgba(45, 53, 80, 0.8)'} w={'xs'} h={'xs'} boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} color={'white'}>
+        <Box p='6' >
+          <h1>Welcome</h1>
+        </Box>
+      </Box>
     )
   }
 }
