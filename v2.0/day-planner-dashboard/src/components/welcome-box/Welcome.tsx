@@ -9,7 +9,7 @@ export class Welcome extends Component {
 
   render() {
     return (
-      <Box borderWidth='0px' borderRadius='lg' bg={'rgba(45, 53, 80, 0.8)'} w={'xs'} h={'xs'} marginLeft={'20pxs'} boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} color={'white'}>
+      <Box borderWidth='0px' borderRadius='lg' bg={'rgba(45, 53, 80, 0.8)'} w={'xs'} h={'xs'} boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} color={'white'}>
         <Box p='6' >
           <h1>Welcome</h1>
         </Box>

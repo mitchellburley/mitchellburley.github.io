@@ -12,15 +12,15 @@ export class Main extends Component {
   render() {
     return (
       <div style={{position: 'absolute', zIndex: 1, top: '20%', left: '30%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap'}}>
-          <div style={{marginRight: '30px'}}>
+        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: '1rem'}}>
+          <div>
             <Welcome />
           </div>
           <div>
             <Weather />
           </div>
         </div>
-        <div style={{marginTop: '25px'}}>
+        <div style={{marginTop: '20px'}}>
           <Tasks />
         </div>
       </div>
