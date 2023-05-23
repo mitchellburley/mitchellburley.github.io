@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Welcome from '../welcome-box/Welcome'
 import Weather from '../weather-box/Weather'
 import Tasks from '../task-box/Tasks'
+import { AbsoluteCenter } from '@chakra-ui/react'
 
 export class Main extends Component {
   static propTypes = {
@@ -11,19 +12,15 @@ export class Main extends Component {
 
   render() {
     return (
-      <div style={{position: 'absolute', zIndex: 1, top: '20%', left: '30%'}}>
+      <AbsoluteCenter style={{zIndex: 1}}>
         <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: '1rem'}}>
-          <div>
-            <Welcome />
-          </div>
-          <div>
-            <Weather />
-          </div>
+          <Welcome />
+          <Weather />
         </div>
         <div style={{marginTop: '20px'}}>
           <Tasks />
         </div>
-      </div>
+      </AbsoluteCenter>
     )
   }
 }
