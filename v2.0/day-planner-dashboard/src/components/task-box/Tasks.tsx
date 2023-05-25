@@ -5,7 +5,7 @@ import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons'
 import '../../App.css'
 
 
-const Tasks = () =>{
+const Tasks = () => {
   var numbers: number[] = [1, 2, 3, 4, 5, 6, 7];
 
   function EditableControls() {
@@ -36,8 +36,8 @@ const Tasks = () =>{
       borderWidth='0px' 
       borderRadius='lg' 
       bg={'rgba(45, 53, 80, 0.8)'} 
-      w={{base: '15em', md: '35em', lg: '50em', xl: '65em'}} 
-      h={'25em'} 
+      w={{md: '35em', lg: '50em', xl: '60em'}} 
+      h={{base: '20em', '2xl': '25em'}} 
       boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} 
       color={'white'}>
       <Box 
