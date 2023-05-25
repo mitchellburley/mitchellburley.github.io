@@ -36,7 +36,7 @@ const Tasks = () => {
       borderWidth='0px' 
       borderRadius='lg' 
       bg={'rgba(45, 53, 80, 0.8)'} 
-      w={{md: '35em', lg: '50em', xl: '60em'}} 
+      w={{md: '35em', lg: '50em', xl: '60em', '2x;': '65em'}} 
       h={{base: '20em', '2xl': '25em'}} 
       boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} 
       color={'white'}>
