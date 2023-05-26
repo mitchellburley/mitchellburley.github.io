@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Text, Flex, Spinner, AbsoluteCenter, Center } from '@chakra-ui/react'
+import { Box, Text, Flex, Spinner, AbsoluteCenter, Center, Image } from '@chakra-ui/react'
 import axios from 'axios'
 import { SunIcon } from '@chakra-ui/icons'
 
 class Weather extends Component {
   state= {
     loading: false,
-    current: Object,
+    current: {
+      condition: {
+        text: '',
+        icon: ''
+      },
+      temp_c: 0,
+      humidity: 0,
+      feelslike_c: 0,
+      pressure_mb: 0,
+      wind_kph: 0
+    },
     forecast: []
   }
 
@@ -34,7 +44,62 @@ class Weather extends Component {
       return (
         <Box borderWidth='0px' borderRadius='lg' bg={'rgba(45, 53, 80, 0.8)'} w={{base: '15em', md:'19em',lg:'34em' ,xl: '44em'}} h={{base:'15em', '2xl':'20em'}} marginLeft={'20pxs'} boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} color={'white'}>
           <Box w={'100%'} h={'60%'}>
-            
+            <Flex direction={'row'} wrap={'nowrap'} h={'100%'}>
+              <Box w={'50%'} pl={4} pt={10}>
+                <Box w={'100%'} h={'50%'}>
+                  <Center h={'100%'}>
+                    <Box>
+                      <SunIcon w={14} h={14} pr={3}></SunIcon>
+                    </Box>
+                    <Box>
+                      <Text fontSize={'3xl'}>{this.state.current.temp_c}</Text>
+                      <Text fontSize={'sm'}>{this.state.current.condition.text}</Text>
+                    </Box>
+                  </Center>
+                </Box>
+                <Box w={'100%'} h={'30%'}>
+                  <Center h={'100%'}>
+                    <Text fontSize={'3xl'} textAlign={'center'}>Newcastle, AU</Text>
+                  </Center>
+                </Box>
+              </Box>
+              <Box w={'50%'} h={'100%'} pr={4} pt={10} pb={3} pl={8}>
+                  <Flex direction={'row'} wrap={'wrap'} h={'100%'} justifyContent={'space-evenly'}>
+                    <Box w={'50%'} h={'50%'}>
+                      <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
+                        <SunIcon pr={2} w={6} h={6}></SunIcon>
+                        <Text>
+                          Humidity <br></br>{this.state.current.humidity}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <Box w={'50%'} h={'50%'}>
+                    <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
+                        <SunIcon pr={2} w={6} h={6}></SunIcon>
+                        <Text>
+                          Feels like <br></br>{this.state.current.feelslike_c}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <Box w={'50%'} h={'50%'}>
+                      <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
+                        <SunIcon pr={2} w={6} h={6}></SunIcon>
+                        <Text>
+                          Air pressure <br></br> {this.state.current.pressure_mb}
+                        </Text>
+                      </Flex>
+                    </Box>
+                    <Box w={'50%'} h={'50%'}>
+                      <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
+                        <SunIcon pr={2} w={6} h={6}></SunIcon>
+                        <Text>
+                          Wind speed <br></br>{this.state.current.wind_kph}
+                        </Text>
+                      </Flex>
+                    </Box>
+                  </Flex>
+              </Box>
+            </Flex>
           </Box>
           <Box w={'100%'} h={'40%'}>
             <Flex direction={'row'} wrap={'nowrap'} justifyContent={'space-evenly'} h={'100%'}>
