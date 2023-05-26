@@ -31,6 +31,7 @@ class Weather extends Component {
     console.log(weather);
     this.setState({current: weather.data.current, forecast: weather.data.forecast.forecastday, loading: false})
   }
+  
   render() {
     if (this.state.loading) {
       return (
@@ -52,7 +53,7 @@ class Weather extends Component {
                       <SunIcon w={14} h={14} pr={3}></SunIcon>
                     </Box>
                     <Box>
-                      <Text fontSize={'3xl'}>{this.state.current.temp_c}</Text>
+                      <Text fontSize={'3xl'}>{this.state.current.temp_c}&deg;</Text>
                       <Text fontSize={'sm'}>{this.state.current.condition.text}</Text>
                     </Box>
                   </Center>
@@ -68,8 +69,8 @@ class Weather extends Component {
                     <Box w={'50%'} h={'50%'}>
                       <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
                         <SunIcon pr={2} w={6} h={6}></SunIcon>
-                        <Text>
-                          Humidity <br></br>{this.state.current.humidity}
+                        <Text fontSize={'sm'}>
+                          Humidity <br></br> <Text fontSize={'lg'}>{this.state.current.humidity}%</Text>
                         </Text>
                       </Flex>
                     </Box>
@@ -77,7 +78,7 @@ class Weather extends Component {
                     <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
                         <SunIcon pr={2} w={6} h={6}></SunIcon>
                         <Text>
-                          Feels like <br></br>{this.state.current.feelslike_c}
+                          Feels like <br></br><Text fontSize={'lg'}>{this.state.current.feelslike_c}&deg;</Text>
                         </Text>
                       </Flex>
                     </Box>
@@ -85,7 +86,7 @@ class Weather extends Component {
                       <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
                         <SunIcon pr={2} w={6} h={6}></SunIcon>
                         <Text>
-                          Air pressure <br></br> {this.state.current.pressure_mb}
+                          Air pressure <br></br> <Text fontSize={'lg'}>{this.state.current.pressure_mb} hPa</Text>
                         </Text>
                       </Flex>
                     </Box>
@@ -93,7 +94,7 @@ class Weather extends Component {
                       <Flex direction={'row'} wrap={'wrap'} h={'100%'}>
                         <SunIcon pr={2} w={6} h={6}></SunIcon>
                         <Text>
-                          Wind speed <br></br>{this.state.current.wind_kph}
+                          Wind speed <br></br><Text fontSize={'lg'}>{this.state.current.wind_kph} km/h</Text>
                         </Text>
                       </Flex>
                     </Box>
