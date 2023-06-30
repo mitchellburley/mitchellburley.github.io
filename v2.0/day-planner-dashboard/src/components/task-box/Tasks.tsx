@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Editable, Input, EditableInput, EditablePreview, useEditableControls, ButtonGroup, Flex, IconButton, useColorModeValue, Button } from '@chakra-ui/react'
-import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons'
+import { CheckIcon, CloseIcon, DeleteIcon, EditIcon,  } from '@chakra-ui/icons'
 import '../../App.css'
 
 
 const Tasks = () => {
   var numbers: number[] = [1, 2, 3, 4, 5, 6, 7];
+  const [tasks, setTasks] = React.useState(numbers);
 
-  function EditableControls() {
+  function EditableControls({number2}: any) {
     const {
       isEditing,
       getSubmitButtonProps,
@@ -16,20 +17,33 @@ const Tasks = () => {
       getEditButtonProps
     } = useEditableControls();
 
-    return (
+    return  isEditing ? (
         <ButtonGroup size="sm" spacing={2} mt={1} mr={3}>
           <IconButton aria-label='Submit' color={'black'} icon={<CheckIcon />} {...getSubmitButtonProps()} />
-          <IconButton aria-label='Close'color={'black'}
+          <IconButton aria-label='Cancel'color={'black'}
             icon={<CloseIcon boxSize={3} />}
             {...getCancelButtonProps()}
-          />
-          <IconButton aria-label='Delete' color={'black'}
-            icon={<EditIcon boxSize={3} />}
-            {...getEditButtonProps()}
-          />
-        </ButtonGroup>
-    );
-  }
+          /> 
+        </ButtonGroup>) 
+        :
+          (<ButtonGroup mt={1} mr={3} size="sm" >
+            <IconButton aria-label='Edit' color={'black'}
+              icon={<EditIcon boxSize={3} />}
+              {...getEditButtonProps()}
+            />
+            <IconButton aria-label='Delete' color={'black'}
+              icon={<DeleteIcon boxSize={3} />}
+              onClick={() => {
+                tasks.splice(parseInt(number2)-1, 1)
+                setTasks(numbers)
+                console.log(tasks)
+              }
+            }
+            />
+          </ButtonGroup>)
+          
+    }
+  
   return (
     <Box 
       overflow={'auto'}
@@ -47,30 +61,30 @@ const Tasks = () => {
           <Input w={'80%'} h={'3em'} placeholder='Add a task' mb={3} borderWidth={0} bg={'whiteAlpha.500'} color={'white'}></Input>
           <Button ml={3} w={'25%'} h={'3em'} variant={'outline'} colorScheme='white'>Add Task</Button>
         </Flex>
-        {numbers.map((number) => 
-            <Editable
-              pt={1}
-              mb={3}
-              h={'3em'}
-              w={'100%'}
-              borderRadius='lg'
-              bg={'whiteAlpha.500'}
-              defaultValue={`Task ${number}`}
-              isPreviewFocusable={true}
-              selectAllOnFocus={false}>
-              <Flex flexDirection={'row'} wrap={'nowrap'} justifyContent={'space-between'}>
-                <EditablePreview
-                    py={2}
-                    px={4}
-                    // _hover={{
-                    //   background: useColorModeValue("gray.100", "gray.700")
-                    // }}
-                >
-                </EditablePreview>
-                <EditableControls />
-              </Flex>
-              <Input py={2} px={4} as={EditableInput} />
-            </Editable>
+        {tasks.map((number) => 
+          <Editable
+            pt={1}
+            mb={3}
+            h={'3em'}
+            w={'100%'}
+            borderRadius='lg'
+            bg={'whiteAlpha.500'}
+            defaultValue={`Task ${number}`}
+            isPreviewFocusable={true}
+            selectAllOnFocus={false}>
+            
+            <Flex flexDirection={'row'} wrap={'nowrap'} justifyContent={'space-between'}>
+              <EditablePreview
+                  py={2}
+                  px={4}
+                  borderWidth='0px' 
+                  borderColor={'white'}
+              >
+              </EditablePreview>
+              <Input borderWidth='0px' borderColor={'white'} _focus={{boxShadow: "none", }} as={EditableInput} />
+              <EditableControls number2={{number}}/>
+            </Flex>
+          </Editable>
         )}
       </Box>
     </Box>
