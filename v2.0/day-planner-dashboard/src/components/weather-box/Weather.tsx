@@ -27,9 +27,26 @@ class Weather extends Component {
 
   async getWeather() {
     this.setState({loading: true})
-    let weather = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}&q=Newcastle, Australia&days=10&aqi=no&alerts=no`);
+    let weather = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}&q=Newcastle,Australia&days=10&aqi=no&alerts=no`);
     console.log(weather);
-    this.setState({current: weather.data.current, forecast: weather.data.forecast.forecastday, loading: false})
+    this.setState(
+      {
+      current: weather.data.current, 
+      forecast: this.getNext10HourWeather(weather.data.forecast, parseInt(weather.data.location.localtime.split(' ')[1].split(':')[0])), 
+      loading: false
+      }
+    )
+  }
+
+  getNext10HourWeather(forecast: any, currentHour: number) {
+    if (currentHour + 10 > 24) {
+      let todayWeather = forecast.forecastday[0].hour.slice(currentHour, 24);
+      let nextDayWeather = forecast.forecastday[1].hour.slice(0, currentHour + 10 - 24);
+      return todayWeather.concat(nextDayWeather);
+    }
+    else {
+      return forecast.forecastday[0].hour.slice(currentHour, currentHour + 10);
+    }
   }
   
   render() {
@@ -108,7 +125,7 @@ class Weather extends Component {
                 <Box borderWidth='0px' borderRadius='sm' w={{base: '2.5em', '2xl': '3.5em'}} h={{base: '4.5em', '2xl': '6em'}} bg={'whiteAlpha.500'} alignSelf={'center'}>
                   <Box w={'100%'} h={'30%'} pt={2}>
                   <Text fontSize={'xs'} textAlign={'center'}>
-                      {w.date.slice(5, 10).split('-').reverse().join('-')}
+                      {w.time.split(' ')[1]}
                     </Text>
                   </Box>
                   <Box w={'100%'} h={'40%'} pt={1}>
@@ -118,7 +135,7 @@ class Weather extends Component {
                   </Box>
                   <Box w={'100%'} h={'30%'}>
                     <Text fontSize={'xs'} textAlign={'center'}>
-                      {w.day.maxtemp_c}
+                      {w.temp_c}
                     </Text>
                   </Box>
                 </Box>
