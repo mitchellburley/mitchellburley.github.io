@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Editable, Input, EditableInput, EditablePreview, useEditableControls, ButtonGroup, Flex, IconButton, useColorModeValue, Button } from '@chakra-ui/react'
 import { CheckIcon, CloseIcon, DeleteIcon, EditIcon,  } from '@chakra-ui/icons'
@@ -9,7 +9,7 @@ const Tasks = () => {
   var numbers: number[] = [1, 2, 3, 4, 5, 6, 7];
   const [tasks, setTasks] = React.useState(numbers);
 
-  function EditableControls({number2}: any) {
+  function EditableControls({index}: any) {
     const {
       isEditing,
       getSubmitButtonProps,
@@ -34,9 +34,8 @@ const Tasks = () => {
             <IconButton aria-label='Delete' color={'black'}
               icon={<DeleteIcon boxSize={3} />}
               onClick={() => {
-                tasks.splice(parseInt(number2)-1, 1)
-                setTasks(numbers)
-                console.log(tasks)
+                tasks.splice(parseInt(index), 1)
+                setTasks([...tasks])
               }
             }
             />
@@ -61,7 +60,7 @@ const Tasks = () => {
           <Input w={'80%'} h={'3em'} placeholder='Add a task' mb={3} borderWidth={0} bg={'whiteAlpha.500'} color={'white'}></Input>
           <Button ml={3} w={'25%'} h={'3em'} variant={'outline'} colorScheme='white'>Add Task</Button>
         </Flex>
-        {tasks.map((number) => 
+        {tasks.map((number, i) => 
           <Editable
             pt={1}
             mb={3}
@@ -82,7 +81,7 @@ const Tasks = () => {
               >
               </EditablePreview>
               <Input borderWidth='0px' borderColor={'white'} _focus={{boxShadow: "none", }} as={EditableInput} />
-              <EditableControls number2={{number}}/>
+              <EditableControls index={i}/>
             </Flex>
           </Editable>
         )}
