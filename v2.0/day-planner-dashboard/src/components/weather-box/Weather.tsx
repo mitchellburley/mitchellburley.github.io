@@ -119,10 +119,10 @@ class Weather extends Component {
               </Box>
             </Flex>
           </Box>
-          <Box w={'100%'} h={'40%'}>
+          <Box w={'100%'} h={'40%'} >
             <Flex direction={'row'} wrap={'nowrap'} justifyContent={'space-evenly'} h={'100%'}>
               {this.state.forecast.map((w: any) => 
-                <Box borderWidth='0px' borderRadius='sm' w={{base: '2.5em', '2xl': '3.5em'}} h={{base: '4.5em', '2xl': '6em'}} bg={'whiteAlpha.500'} alignSelf={'center'}>
+                <Box borderWidth='0px' borderRadius='md' w={{base: '2.5em', '2xl': '3.5em'}} h={{base: '4.5em', '2xl': '6em'}} bg={'whiteAlpha.500'} alignSelf={'center'}>
                   <Box w={'100%'} h={'45%'} pt={1}>
                   <Text fontSize={'xs'} textAlign={'center'}>
                       {w.time.slice(5, 10).split('-').reverse().join('-')}
