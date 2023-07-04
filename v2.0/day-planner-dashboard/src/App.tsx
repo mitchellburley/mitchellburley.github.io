@@ -1,22 +1,17 @@
-import * as React from "react"
-import Welcome from './components/welcome-box/Welcome'
 import Background from './components/background/Background';
 
 import {
   ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
   theme,
 } from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+import Login from "./components/login/Login";
 
-export const App = () => (
+export const App = () => {
+  const isLoggedIn = false;
+
+  return (
   <ChakraProvider theme={theme}>
-    <Background />
+    {!isLoggedIn ? (<Login />) : (<Background />)}
   </ChakraProvider>
-)
+  )
+}
