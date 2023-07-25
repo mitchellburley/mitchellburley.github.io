@@ -8,10 +8,11 @@ import Login from "./components/login/Login";
 
 export const App = () => {
   const isLoggedIn = false;
+  const name = '';
 
   return (
   <ChakraProvider theme={theme}>
-    {!isLoggedIn ? (<Login />) : (<Background />)}
+    {!isLoggedIn ? (<Login loggedIn={isLoggedIn} name={name}/>) : (<Background name={name}/>)}
   </ChakraProvider>
   )
 }
