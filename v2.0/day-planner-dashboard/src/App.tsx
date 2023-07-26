@@ -7,12 +7,12 @@ import Login from "./components/login/Login";
 import React from 'react';
 
 export const App = () => {
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState(localStorage.getItem("Name") || "");
   const [isLoggedIn, setLoggedIn] = React.useState(false);
 
   return (
   <ChakraProvider theme={theme}>
-    {!isLoggedIn ? (<Login setLoggedIn={setLoggedIn} setName={setName}/>) : (<Background name={name}/>)}
+    {!isLoggedIn && localStorage.getItem("Name") === null ? (<Login setLoggedIn={setLoggedIn} setName={setName}/>) : (<Background name={name}/>)}
   </ChakraProvider>
   )
 }
