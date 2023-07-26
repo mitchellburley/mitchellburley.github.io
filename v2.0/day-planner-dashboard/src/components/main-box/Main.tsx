@@ -5,24 +5,24 @@ import Weather from '../weather-box/Weather'
 import Tasks from '../task-box/Tasks'
 import { AbsoluteCenter } from '@chakra-ui/react'
 
-export class Main extends Component {
-  static propTypes = {
+type MainProps = { 
+  name: string
+}
 
-  }
+const Main = (props: MainProps) => {
+  const {name} = props;
 
-  render() {
-    return (
-      <AbsoluteCenter style={{zIndex: 1}}>
-        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: '1rem'}}>
-          <Welcome />
-          <Weather />
-        </div>
-        <div style={{marginTop: '20px'}}>
-          <Tasks />
-        </div>
-      </AbsoluteCenter>
-    )
-  }
+  return (
+    <AbsoluteCenter style={{zIndex: 1}}>
+      <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: '1rem'}}>
+        <Welcome name={name}/>
+        <Weather />
+      </div>
+      <div style={{marginTop: '20px'}}>
+        <Tasks />
+      </div>
+    </AbsoluteCenter>
+  )
 }
 
 export default Main

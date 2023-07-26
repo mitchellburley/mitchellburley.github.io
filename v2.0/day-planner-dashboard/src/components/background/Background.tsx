@@ -8,7 +8,14 @@ import { Sky } from 'three/examples/jsm/objects/Sky.js';
 import Welcome from '../welcome-box/Welcome'
 import Main from '../main-box/Main';
 
-export class Background extends Component {
+interface BgProps {
+  name: string
+}
+
+class Background extends React.Component<BgProps> {
+  constructor(props: BgProps) {
+    super(props);
+  }
   camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 30000 );
   container = document.getElementById( 'container' );
 	renderer = new THREE.WebGLRenderer();
@@ -158,7 +165,7 @@ export class Background extends Component {
   render() {
     return (
       <div id="container" style={{zIndex: -999}}>
-        <Main />
+        <Main name={this.props.name}/>
       </div>
     )
   }

@@ -6,8 +6,7 @@ import '../../App.css'
 
 
 const Tasks = () => {
-  var numbers: number[] = [1, 2, 3, 4, 5, 6, 7];
-  const [tasks, setTasks] = React.useState(numbers);
+  const [tasks, setTasks] = React.useState(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
 
   function EditableControls({index}: any) {
     const {
@@ -36,6 +35,7 @@ const Tasks = () => {
               onClick={() => {
                 tasks.splice(parseInt(index), 1)
                 setTasks([...tasks])
+                console.log(tasks)
               }
             }
             />
@@ -68,7 +68,7 @@ const Tasks = () => {
             w={'100%'}
             borderRadius='lg'
             bg={'whiteAlpha.500'}
-            defaultValue={`Task ${number}`}
+            defaultValue={`Task ${number}_${i}`}
             isPreviewFocusable={true}
             selectAllOnFocus={false}>
             
