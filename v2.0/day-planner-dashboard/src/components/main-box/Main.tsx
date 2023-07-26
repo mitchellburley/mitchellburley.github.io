@@ -12,6 +12,11 @@ type MainProps = {
 const Main = (props: MainProps) => {
   const {name} = props;
 
+  function storeName() {
+    localStorage.setItem("Name", name);
+  }
+  storeName();
+
   return (
     <AbsoluteCenter style={{zIndex: 1}}>
       <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', gap: '1rem'}}>

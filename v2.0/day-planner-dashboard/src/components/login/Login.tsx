@@ -21,8 +21,8 @@ const Login = (props: LoginProps) => {
             </Box> */}
             <Box pt={'1'} pl={'5'} pr={'5'}>
               <Flex direction={'row'} wrap={'nowrap'} pt={'3'} gap={'0.5em'}>
-                  <Input placeholder='Enter your name...' size={'lg'} onChange={(e) => {setName(e.target.value); localStorage.setItem("Name", e.target.value)}}/>
-                  <Button colorScheme='blue' size={'lg'} onClick={() => {setLoggedIn(true)}}>Continue</Button>
+                  <Input placeholder='Enter your name...' size={'lg'} onChange={(e) => {setName(e.target.value)}}/>
+                  <Button colorScheme='blue' size={'lg'} onClick={() => {setLoggedIn(true) }}>Continue</Button>
               </Flex>
             </Box>
             <Box>

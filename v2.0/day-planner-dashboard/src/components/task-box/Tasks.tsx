@@ -6,7 +6,7 @@ import '../../App.css'
 
 
 const Tasks = () => {
-  const [tasks, setTasks] = React.useState(["1", "2", "3", "4", "5", "6", "7", "8", "9"]);
+  const [tasks, setTasks] = React.useState(populateTasks());
 
   function EditableControls({index}: any) {
     const {
@@ -34,13 +34,23 @@ const Tasks = () => {
               icon={<DeleteIcon boxSize={3} />}
               onClick={() => {
                 tasks.splice(parseInt(index), 1)
+                localStorage.setItem("Tasks", JSON.stringify(tasks));
                 setTasks([...tasks])
                 console.log(tasks)
               }
             }
             />
-          </ButtonGroup>)
-          
+          </ButtonGroup>) 
+    }
+
+    function populateTasks() {
+      if (localStorage.getItem("Tasks") === null) {
+        localStorage.setItem("Tasks", JSON.stringify(["1", "2", "3", "4", "5", "6", "7", "8", "9"]))
+        return JSON.parse(localStorage.getItem("Tasks") || "{}")
+      }
+      else {
+        return JSON.parse(localStorage.getItem("Tasks") || "{}")
+      }
     }
   
   return (
@@ -60,7 +70,7 @@ const Tasks = () => {
           <Input w={'80%'} h={'3em'} placeholder='Add a task' mb={3} borderWidth={0} bg={'whiteAlpha.500'} color={'white'}></Input>
           <Button ml={3} w={'25%'} h={'3em'} variant={'outline'} colorScheme='white'>Add Task</Button>
         </Flex>
-        {tasks.map((number, i) => 
+        {tasks.map((number: any, i: number) => 
           <Editable
             pt={1}
             mb={3}
