@@ -28,13 +28,12 @@ class Weather extends Component {
 
   async getWeather() {
     this.setState({loading: true})
-    await navigator.geolocation.getCurrentPosition(this.getPosition, this.errorPosition);
+    await navigator.geolocation.getCurrentPosition(this.getPosition.bind(this), this.errorPosition.bind(this));
   }
 
   async getPosition(position: any) {
     let weather = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}&q=${position.coords.latitude},${position.coords.longitude}&days=10&aqi=no&alerts=no`);
     var forecast = this.getNext10HourWeather(weather.data.forecast, parseInt(weather.data.location.localtime.split(' ')[1].split(':')[0]));
-    console.log(forecast);
     this.setState(
       {
       current: weather.data.current, 
@@ -46,12 +45,13 @@ class Weather extends Component {
   }
 
   errorPosition() {
-    // this.setState({weatherErrorText: "Geolocation has been denied or is not supported by this browser"});
+    this.setState({
+      weatherErrorText: "Geolocation has been denied or is not supported by this browser",
+      loading: false
+    });
   }
 
   getNext10HourWeather(forecast: any, currentHour: number) {
-    console.log(forecast);
-    console.log(currentHour);
     if (currentHour + 10 > 24) {
       let todayWeather = forecast.forecastday[0].hour.slice(currentHour, 24);
       let nextDayWeather = forecast.forecastday[1].hour.slice(0, currentHour + 10 - 24);
@@ -63,11 +63,12 @@ class Weather extends Component {
   }
   
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || this.state.weatherErrorText !== '') {
       return (
       <Box borderWidth='0px' borderRadius='lg' bg={'rgba(45, 53, 80, 0.8)'} w={{base: '15em', md:'19em',lg:'34em' ,xl: '44em'}} h={{base:'15em', '2xl':'20em'}} marginLeft={'20pxs'} boxShadow={'rgba(0, 0, 0, 0.74) 0px 3px 8px'} color={'white'}>
         <Center h={'100%'}>
-          <Spinner size={'xl'}></Spinner>
+          {this.state.loading ? <Spinner size={'xl'}></Spinner> : null}
+          {this.state.weatherErrorText !== '' ? <Text fontSize={'xl'}>{this.state.weatherErrorText}</Text> : null }
         </Center>
       </Box>
       )
