@@ -18,7 +18,8 @@ class Weather extends Component {
       pressure_mb: 0,
       wind_kph: 0
     },
-    forecast: []
+    forecast: [],
+    weatherErrorText: ''
   }
 
   componentDidMount(): void {
@@ -27,18 +28,30 @@ class Weather extends Component {
 
   async getWeather() {
     this.setState({loading: true})
-    let weather = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}&q=Newcastle,Australia&days=10&aqi=no&alerts=no`);
-    console.log(weather);
+    await navigator.geolocation.getCurrentPosition(this.getPosition, this.errorPosition);
+  }
+
+  async getPosition(position: any) {
+    let weather = await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_WEATHER_KEY}&q=${position.coords.latitude},${position.coords.longitude}&days=10&aqi=no&alerts=no`);
+    var forecast = this.getNext10HourWeather(weather.data.forecast, parseInt(weather.data.location.localtime.split(' ')[1].split(':')[0]));
+    console.log(forecast);
     this.setState(
       {
       current: weather.data.current, 
-      forecast: this.getNext10HourWeather(weather.data.forecast, parseInt(weather.data.location.localtime.split(' ')[1].split(':')[0])), 
-      loading: false
+      forecast: forecast,
+      loading: false,
+      weatherErrorText: ''
       }
     )
   }
 
+  errorPosition() {
+    // this.setState({weatherErrorText: "Geolocation has been denied or is not supported by this browser"});
+  }
+
   getNext10HourWeather(forecast: any, currentHour: number) {
+    console.log(forecast);
+    console.log(currentHour);
     if (currentHour + 10 > 24) {
       let todayWeather = forecast.forecastday[0].hour.slice(currentHour, 24);
       let nextDayWeather = forecast.forecastday[1].hour.slice(0, currentHour + 10 - 24);
